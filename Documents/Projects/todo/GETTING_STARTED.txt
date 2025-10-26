@@ -1,0 +1,114 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║               🎯 LINKRIGHT - GETTING STARTED 🎯                  ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Thank you for using LinkRight Job Search CRM! Here's how to get started in 60 seconds:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: CONFIGURE (Required)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Open the file: config.js
+
+Replace these two lines:
+
+  WEBHOOK_URL: '[WEBHOOK_URL]'
+  → WEBHOOK_URL: 'https://your-actual-webhook-url.com/endpoint'
+
+  PRIVACY_POLICY_URL: '[PRIVACY_POLICY_URL]'
+  → PRIVACY_POLICY_URL: 'https://your-website.com/privacy'
+
+Save the file.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 2: INSTALL IN CHROME
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open Chrome browser
+2. Go to: chrome://extensions/
+3. Turn ON "Developer mode" (toggle in top-right)
+4. Click "Load unpacked"
+5. Select this folder (linkright-job-search-crm)
+6. Done!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 3: USE ON LINKEDIN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Go to: https://www.linkedin.com
+2. Look for the target icon (top-right corner)
+3. Click it to open the sidebar
+4. Click "Engagement" button to activate
+5. Try commenting on any post!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KEYBOARD SHORTCUT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Press Alt+L (Windows/Linux) or Option+L (Mac) to toggle Engagement 
+mode on/off from anywhere on LinkedIn.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WEBHOOK SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your webhook must accept POST requests like this:
+
+  REQUEST:
+  {
+    "post_text": "LinkedIn post text...",
+    "action_type": "comment" or "reply"
+  }
+
+  RESPONSE:
+  {
+    "comment": "AI-generated comment here..."
+  }
+
+Test your webhook with curl or Postman before using the extension!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NEED HELP?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Read the documentation:
+
+  • QUICK_START.md     - This guide
+  • INSTALLATION.md    - Detailed setup instructions
+  • README.md          - Complete user manual
+  • TROUBLESHOOTING    - Common issues & solutions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Extension not loading?
+  → Check chrome://extensions/
+  → Make sure Developer mode is ON
+
+Webhook not working?
+  → Verify WEBHOOK_URL in config.js
+  → Test webhook with curl or Postman
+  → Check it returns JSON with "comment" field
+
+Comments not pasting?
+  → Check browser console for errors (F12)
+  → Verify webhook response format
+  → Try refreshing LinkedIn page
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+That's it! You're ready to automate your LinkedIn job search! 🚀
+
+For more information, see README.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

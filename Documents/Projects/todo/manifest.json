@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "LinkRight - Job Search CRM",
+  "version": "1.0.0",
+  "description": "Smart LinkedIn engagement automation with AI-powered comments for job search success",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "clipboardWrite",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.linkedin.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "LinkRight - Job Search CRM"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["config.js", "content.js"],
+      "css": ["sidebar.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "toggle-engagement": {
+      "suggested_key": {
+        "default": "Alt+L",
+        "mac": "Alt+L"
+      },
+      "description": "Toggle LinkRight Engagement Mode"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*"],
+      "matches": ["https://www.linkedin.com/*"]
+    }
+  ]
+}
