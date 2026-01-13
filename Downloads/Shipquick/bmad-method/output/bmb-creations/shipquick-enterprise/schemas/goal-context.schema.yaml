@@ -1,0 +1,112 @@
+# Goal Context Schema
+
+**Layer:** Goal Context  
+**Purpose:** Information about user's current objective
+
+---
+
+```yaml
+# Goal Context Layer Schema
+# Version: 1.0.0
+
+goal_id: "GOAL_[TIMESTAMP]_[UUID]"
+created_timestamp: "ISO_8601"
+last_modified_timestamp: "ISO_8601"
+version: 1
+schema_version: "1.0.0"
+user_profile_id: "USR_[TIMESTAMP]_[UUID]"  # Reference to user
+
+# GOAL DEFINITION
+goal_definition:
+  primary_objective: string  # Clear statement of what user wants to achieve
+  
+  success_criteria:
+    - criterion_id: "CRT_[TIMESTAMP]_[UUID]"
+      description: string
+      measurable: boolean
+      target_value: string
+      current_value: string
+      created_timestamp: timestamp
+      
+  motivation:
+    - motivation_id: "MOT_[TIMESTAMP]_[UUID]"
+      type: "intrinsic" | "extrinsic"
+      description: string
+      importance_level: integer  # 1-10
+      created_timestamp: timestamp
+
+# CONSTRAINTS
+constraints:
+  timeline:
+    start_date: date
+    target_completion_date: date
+    hard_deadline: boolean
+    flexibility_description: string
+    
+  time_availability:
+    hours_per_week: integer
+    specific_available_blocks:
+      - block_id: "BLK_[TIMESTAMP]_[UUID]"
+        day_of_week: string
+        start_time: time
+        end_time: time
+        notes: string
+        
+  financial_constraints:
+    budget_amount: decimal
+    budget_currency: string
+    budget_flexibility: "strict" | "moderate" | "flexible"
+    
+  other_constraints:
+    - constraint_id: "CST_[TIMESTAMP]_[UUID]"
+      description: string
+      severity: "blocking" | "significant" | "minor"
+      created_timestamp: timestamp
+
+# STRATEGY
+strategy:
+  chosen_approach: string
+  approach_rationale: string
+  
+  key_milestones:
+    - milestone_id: "MLS_[TIMESTAMP]_[UUID]"
+      name: string
+      description: string
+      target_date: date
+      completion_status: "not_started" | "in_progress" | "completed"
+      completion_timestamp: timestamp
+      created_timestamp: timestamp
+      
+  priorities:
+    - priority_id: "PRI_[TIMESTAMP]_[UUID]"
+      area: string
+      importance_level: integer  # 1-10
+      rationale: string
+      created_timestamp: timestamp
+      
+  decided_not_to_pursue:
+    - decision_id: "DEC_[TIMESTAMP]_[UUID]"
+      what: string
+      rationale: string
+      decided_timestamp: timestamp
+
+# TARGET SPECIFICS (domain-flexible)
+target_specifics:
+  # Structure adapts to goal type
+  # Examples:
+  # - target_companies: [...]
+  # - target_roles: [...]
+  # - target_audience: [...]
+```
+
+---
+
+## Relationships
+
+- **Links to:** user_profile_id
+- **Referenced by:** progress_state, session_context, knowledge_graph
+
+## Access Patterns
+
+- **every_activation:** primary_objective, current_milestone, constraints
+- **on_demand:** motivation, priorities, decided_not_to_pursue

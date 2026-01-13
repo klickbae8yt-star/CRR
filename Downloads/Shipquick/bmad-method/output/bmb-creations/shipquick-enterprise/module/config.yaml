@@ -1,0 +1,49 @@
+# Shipquick Enterprise Module Configuration
+# Version: 1.0.0
+# Created: 2026-01-13
+
+module:
+  name: "shipquick-enterprise"
+  version: "1.0.0"
+  description: "Enterprise agentic system for building and managing AI agents, workflows, and context layers"
+  schema_version: "2.0.0"
+
+# User Configuration
+user:
+  user_name: "Developer"
+  communication_language: "Hindi-English Mix"
+  output_folder: "./output"
+
+# Paths
+paths:
+  project_root: "."
+  module_root: "."
+  agents: "./agents"
+  workflows: "./workflows"
+  tasks: "./tasks"
+  schemas: "./schemas"
+  config: "./config"
+  templates: "./templates"
+
+# LLM Configuration (configure via llm-integration workflow)
+llm:
+  primary_provider: ""
+  primary_model: ""
+  fallback_provider: ""
+  fallback_model: ""
+  api_keys:
+    openai: "${OPENAI_API_KEY}"
+    anthropic: "${ANTHROPIC_API_KEY}"
+    google: "${GOOGLE_API_KEY}"
+
+# Feature Flags
+features:
+  security_review_enabled: true
+  cost_tracking_enabled: true
+  context_persistence_enabled: true
+
+# Logging
+logging:
+  level: "info"
+  format: "json"
+  output: "./logs"

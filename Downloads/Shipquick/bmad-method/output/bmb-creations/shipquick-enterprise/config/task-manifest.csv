@@ -1,0 +1,6 @@
+id,name,path,used_by,status,description
+TSK_VALIDATE_AGENT_001,Validate Agent,tasks/validate-agent.md,"agent-builder,shipquick-master",active,"Validate agent file structure and completeness"
+TSK_VALIDATE_WORKFLOW_001,Validate Workflow,tasks/validate-workflow.md,"workflow-designer,shipquick-master",active,"Validate workflow structure and step files"
+TSK_VALIDATE_CONTEXT_001,Validate Context,tasks/validate-context.md,"context-architect,shipquick-master",active,"Validate context schema syntax"
+TSK_ESTIMATE_TOKENS_001,Estimate Tokens,tasks/estimate-tokens.md,"llm-specialist,prompt-engineer",active,"Estimate token usage for prompts"
+TSK_EXPORT_CONFIG_001,Export Config,tasks/export-config.md,shipquick-master,active,"Export module configuration"

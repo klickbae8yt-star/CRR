@@ -1,0 +1,40 @@
+{
+  "name": "shipquick-enterprise",
+  "version": "1.0.1",
+  "description": "Enterprise agentic system for building AI agents, workflows, and context layers following the Shipquick Meta-Agentic Architecture",
+  "main": "index.js",
+  "bin": {
+    "shipquick-init": "./bin/shipquick-init.js"
+  },
+  "files": [
+    "bin/",
+    "module/",
+    "Shipquick_Meta_Agentic_System_Architecture.md",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0",
+    "postinstall": "echo \"Run 'npx shipquick-init' to initialize Shipquick Enterprise in your project\""
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "agentic",
+    "llm",
+    "workflows",
+    "context",
+    "multi-agent",
+    "shipquick",
+    "enterprise"
+  ],
+  "author": "Satvik Jain",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/klickbae8yt-star/CRR.git"
+  },
+  "homepage": "https://github.com/klickbae8yt-star/CRR#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -1,0 +1,8 @@
+id,name,path,assigned_agent,steps,status,description
+WF_CREATE_AGENT_001,Create Agent,workflows/create-agent/,agent-builder,5,active,"Create new agent definition with persona and behaviors"
+WF_CREATE_WORKFLOW_001,Create Workflow,workflows/create-workflow/,workflow-designer,5,active,"Create new step-file workflow"
+WF_CREATE_CONTEXT_001,Create Context Layer,workflows/create-context-layer/,context-architect,3,active,"Create new context layer schema"
+WF_SECURITY_REVIEW_001,Security Review,workflows/security-review/,security-guardian,4,active,"Run security audit on module"
+WF_LLM_INTEGRATION_001,LLM Integration,workflows/llm-integration/,llm-specialist,3,active,"Configure LLM provider integration"
+WF_IMPROVE_PROMPT_001,Improve Prompt,workflows/improve-prompt/,prompt-engineer,2,active,"Improve existing prompts"
+WF_CREATE_SYSTEM_PROMPT_001,Create System Prompt,workflows/create-system-prompt/,prompt-engineer,3,active,"Create new system prompts"

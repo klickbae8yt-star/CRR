@@ -1,0 +1,7 @@
+id,name,layer,path,status,description
+SCH_USER_PROFILE_001,User Profile,1,schemas/user-profile.schema.yaml,active,"Stable user information and preferences"
+SCH_GOAL_CONTEXT_001,Goal Context,2,schemas/goal-context.schema.yaml,active,"Current objective and constraints"
+SCH_PROGRESS_STATE_001,Progress State,3,schemas/progress-state.schema.yaml,active,"Dynamic work tracking"
+SCH_SESSION_CONTEXT_001,Session Context,4,schemas/session-context.schema.yaml,active,"Current interaction state"
+SCH_KNOWLEDGE_GRAPH_001,Knowledge Graph,5,schemas/knowledge-graph.schema.yaml,active,"Connected concepts and insights"
+SCH_INTERACTION_HISTORY_001,Interaction History,6,schemas/interaction-history.schema.yaml,active,"Searchable past interactions"

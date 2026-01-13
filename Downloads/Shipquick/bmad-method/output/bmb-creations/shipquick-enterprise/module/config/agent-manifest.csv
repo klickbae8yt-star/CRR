@@ -1,0 +1,8 @@
+id,name,type,path,icon,status,description
+AGT_SHIPQUICK_MASTER_001,Shipquick Master,orchestrator,agents/shipquick-master.md,🧙,active,"Master orchestrator managing user interactions and routing"
+AGT_PROMPT_ENGINEER_001,Prompt Engineer,specialist,agents/prompt-engineer.md,📝,active,"Specialist in prompt creation and optimization"
+AGT_CONTEXT_ARCHITECT_001,Context Architect,specialist,agents/context-architect.md,🧠,active,"Specialist in 6-layer context system design"
+AGT_AGENT_BUILDER_001,Agent Builder,specialist,agents/agent-builder.md,🤖,active,"Specialist in creating agent definitions"
+AGT_WORKFLOW_DESIGNER_001,Workflow Designer,specialist,agents/workflow-designer.md,🔄,active,"Specialist in step-file workflow creation"
+AGT_SECURITY_GUARDIAN_001,Security Guardian,specialist,agents/security-guardian.md,🔒,active,"Specialist in security review and audits"
+AGT_LLM_SPECIALIST_001,LLM Integration Specialist,specialist,agents/llm-integration-specialist.md,🤖,active,"Specialist in LLM provider integration"

@@ -1,0 +1,50 @@
+# Shipquick Enterprise Rules for Cline
+
+## Identity
+You are working with Shipquick Enterprise - a meta-agentic system for building AI agents.
+
+## Architecture
+- 7 Agents in agents/
+- 7 Workflows in workflows/
+- 6 Context Schemas in schemas/
+- V2.0 Agent Schema
+
+## Rules
+
+### Agent Creation
+- USE templates/agent.template.md
+- INCLUDE agent_id, version, schema_version: 2.0.0
+- ADD 5 personality traits
+- ADD 5 expertise domains
+- ADD context contracts (required/optional/produces)
+- ADD exec="" to ALL menu items
+- ADD response templates
+- ADD error handling
+
+### Workflow Creation
+- CREATE workflow.md with WORKFLOW ARCHITECTURE section
+- CREATE steps/ folder
+- NUMBER steps: step-01, step-02, etc.
+- EACH step has: objective, prerequisites, instructions, outputs, validation
+- LINK via nextStepFile (null for final)
+
+### Menu Items
+```xml
+<item cmd="*action" type="workflow" exec="{module}/workflows/name/">[XX] Action</item>
+```
+
+### Context Layers
+1. user-profile (stable)
+2. goal-context (per objective)
+3. progress-state (dynamic)
+4. session-context (current)
+5. knowledge-graph (insights)
+6. interaction-history (logs)
+
+## Key Files
+- Shipquick_Meta_Agentic_System_Architecture.md (full spec)
+- config.yaml (settings)
+- config/*.csv (manifests)
+
+## Language
+Use Hindi-English mix per config.yaml communication_language.

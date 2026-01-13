@@ -1,0 +1,119 @@
+# User Profile Schema
+
+**Layer:** User Profile  
+**Purpose:** Stable information about the user as a person
+
+---
+
+```yaml
+# User Profile Context Layer Schema
+# Version: 1.0.0
+
+user_profile_id: "USR_[TIMESTAMP]_[UUID]"
+created_timestamp: "ISO_8601"
+last_modified_timestamp: "ISO_8601"
+version: 1
+schema_version: "1.0.0"
+
+# IDENTITY
+identity:
+  preferred_name: string  # What to call the user
+  full_name: string       # Legal/formal name
+  email: string           # Optional contact
+  timezone: string        # For scheduling
+  location: string        # Physical location
+
+# BACKGROUND (stable, rarely changes)
+background:
+  education:
+    - degree_id: "EDU_[TIMESTAMP]_[UUID]"
+      institution: string
+      degree: string
+      field: string
+      graduation_year: integer
+      created_timestamp: timestamp
+      
+  work_history:
+    - position_id: "POS_[TIMESTAMP]_[UUID]"
+      company: string
+      title: string
+      start_date: date
+      end_date: date  # null if current
+      description: string
+      created_timestamp: timestamp
+      
+  domain_expertise:
+    - expertise_id: "EXP_[TIMESTAMP]_[UUID]"
+      domain: string
+      proficiency_level: integer  # 1-10
+      years_experience: integer
+      description: string
+      created_timestamp: timestamp
+      last_assessed_timestamp: timestamp
+
+# LEARNING PREFERENCES (guides agent behavior)
+learning_preferences:
+  preferred_learning_style:
+    - "visual" | "textual" | "hands-on" | "theoretical"
+  preferred_explanation_depth:
+    - "high-level" | "detailed" | "comprehensive"
+  preferred_pacing:
+    - "fast" | "moderate" | "thorough"
+  challenge_preference:
+    - "stretch" | "balanced" | "supported"
+  autonomy_preference:
+    - "high" | "moderate" | "guided"
+  feedback_preference:
+    - "direct" | "constructive" | "encouraging"
+
+# PERSONALITY TRAITS (observed over time)
+personality_traits:
+  - trait_id: "TRT_[TIMESTAMP]_[UUID]"
+    trait_name: string
+    trait_value: integer  # 1-10
+    description: string
+    created_timestamp: timestamp
+
+# SKILL LEVELS (frequently updated)
+skill_levels:
+  - skill_id: "SKL_[TIMESTAMP]_[UUID]"
+    skill_name: string
+    category: string
+    current_level: integer  # 1-10
+    target_level: integer   # 1-10
+    last_assessed_timestamp: timestamp
+    assessment_notes: string
+    skill_history:
+      - assessment_id: "ASS_[TIMESTAMP]_[UUID]"
+        timestamp: timestamp
+        level: integer
+        notes: string
+
+# COMMUNICATION PREFERENCES
+preferences:
+  communication_preferences:
+    formality_level: "formal" | "professional" | "casual"
+    verbosity: "concise" | "moderate" | "detailed"
+    use_technical_jargon: boolean
+    use_analogies: boolean
+    
+  work_preferences:
+    preferred_work_times:
+      - day_of_week: string
+        start_time: time
+        end_time: time
+    session_duration_preference: integer  # minutes
+    break_frequency_preference: integer   # minutes
+```
+
+---
+
+## Relationships
+
+- **Referenced by:** goal_context, progress_state, session_context, knowledge_graph, interaction_history
+- **Links to:** None (root entity)
+
+## Access Patterns
+
+- **every_activation:** preferred_name, learning_preferences, skill_levels
+- **on_demand:** background, personality_traits, work_preferences

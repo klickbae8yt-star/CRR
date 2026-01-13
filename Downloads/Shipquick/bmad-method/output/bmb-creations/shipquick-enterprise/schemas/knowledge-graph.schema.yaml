@@ -1,0 +1,120 @@
+# Knowledge Graph Schema
+
+**Layer:** Knowledge Graph  
+**Purpose:** Connected concepts and insights
+
+---
+
+```yaml
+# Knowledge Graph Context Layer Schema
+# Version: 1.0.0
+
+graph_id: "GRP_[TIMESTAMP]_[UUID]"
+created_timestamp: "ISO_8601"
+last_modified_timestamp: "ISO_8601"
+version: 1
+schema_version: "1.0.0"
+user_profile_id: "USR_[TIMESTAMP]_[UUID]"
+goal_id: "GOAL_[TIMESTAMP]_[UUID]"  # Scope of this graph
+
+# NODES (concepts, entities, insights)
+nodes:
+  - node_id: "NODE_[TIMESTAMP]_[UUID]"
+    node_type: "concept" | "skill" | "fact" | "insight" | "pattern" | "resource" | "person"
+    node_name: string
+    node_description: string
+    metadata:
+      created_timestamp: timestamp
+      created_by_agent_id: string
+      source_session_id: string
+      confidence: decimal  # 0.0-1.0
+      importance: integer  # 1-10
+      tags: [string]
+    properties:
+      # Flexible key-value for node-specific data
+      # Examples:
+      # - url: string (for resources)
+      # - proficiency: integer (for skills)
+      # - discovered_date: date (for insights)
+
+# EDGES (relationships between nodes)
+edges:
+  - edge_id: "EDGE_[TIMESTAMP]_[UUID]"
+    source_node_id: "NODE_[TIMESTAMP]_[UUID]"
+    target_node_id: "NODE_[TIMESTAMP]_[UUID]"
+    edge_type: string
+    # Common edge types:
+    # - "builds_on" (A is foundation for B)
+    # - "related_to" (general association)
+    # - "contradicts" (tension between concepts)
+    # - "enables" (A makes B possible)
+    # - "requires" (A needs B)
+    # - "part_of" (A is component of B)
+    # - "example_of" (A is instance of B)
+    edge_label: string  # Human-readable description
+    edge_strength: decimal  # 0.0-1.0
+    edge_direction: "unidirectional" | "bidirectional"
+    metadata:
+      created_timestamp: timestamp
+      created_by_agent_id: string
+      evidence: string  # Why this relationship exists
+
+# CLUSTERS (groupings of related nodes)
+clusters:
+  - cluster_id: "CLU_[TIMESTAMP]_[UUID]"
+    cluster_name: string
+    cluster_description: string
+    cluster_type: "topic" | "skill_area" | "project" | "theme"
+    member_node_ids: [string]
+    created_timestamp: timestamp
+    created_by_agent_id: string
+
+# PATHS (learning sequences, dependencies)
+paths:
+  - path_id: "PTH_[TIMESTAMP]_[UUID]"
+    path_name: string
+    path_description: string
+    path_type: "learning_sequence" | "dependency_chain" | "exploration"
+    ordered_node_ids: [string]  # Sequence matters
+    created_timestamp: timestamp
+    created_by_agent_id: string
+    completion_status:
+      completed_node_ids: [string]
+      current_node_id: string
+      next_node_id: string
+
+# INSIGHTS (high-level patterns discovered)
+insights:
+  - insight_id: "INS_[TIMESTAMP]_[UUID]"
+    insight_title: string
+    insight_description: string
+    supporting_evidence:
+      - node_id: string
+        relevance: string
+    confidence: decimal  # 0.0-1.0
+    actionable: boolean
+    recommended_action: string
+    created_timestamp: timestamp
+    created_by_agent_id: string
+
+# QUERIES (saved useful traversals)
+saved_queries:
+  - query_id: "QRY_[TIMESTAMP]_[UUID]"
+    query_name: string
+    query_description: string
+    query_pattern: string  # Graph traversal pattern
+    last_executed_timestamp: timestamp
+    execution_count: integer
+```
+
+---
+
+## Relationships
+
+- **Links to:** user_profile_id, goal_id
+- **Referenced by:** session_context, progress_state
+
+## Access Patterns
+
+- **every_activation:** relevant clusters and paths for current work
+- **on_demand:** specific nodes, edge traversals, insights

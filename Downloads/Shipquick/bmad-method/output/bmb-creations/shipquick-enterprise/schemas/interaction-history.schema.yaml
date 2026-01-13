@@ -1,0 +1,131 @@
+# Interaction History Schema
+
+**Layer:** Interaction History  
+**Purpose:** Searchable archive of past interactions
+
+---
+
+```yaml
+# Interaction History Context Layer Schema
+# Version: 1.0.0
+
+history_id: "HST_[TIMESTAMP]_[UUID]"
+created_timestamp: "ISO_8601"
+last_modified_timestamp: "ISO_8601"
+version: 1
+schema_version: "1.0.0"
+user_profile_id: "USR_[TIMESTAMP]_[UUID]"
+
+# CONVERSATION RECORDS
+conversations:
+  - conversation_id: "CNV_[TIMESTAMP]_[UUID]"
+    session_id: "SES_[TIMESTAMP]_[UUID]"
+    goal_id: "GOAL_[TIMESTAMP]_[UUID]"
+    start_timestamp: timestamp
+    end_timestamp: timestamp
+    
+    participants:
+      user_profile_id: string
+      agent_ids: [string]
+      
+    topic_summary: string
+    key_points:
+      - point: string
+        importance: integer  # 1-10
+        
+    messages:
+      - message_id: "MSG_[TIMESTAMP]_[UUID]"
+        timestamp: timestamp
+        sender_type: "user" | "agent"
+        sender_id: string
+        message_content: string
+        message_type: "question" | "answer" | "instruction" | "feedback" | "other"
+        
+    outcomes:
+      - outcome_id: "OUT_[TIMESTAMP]_[UUID]"
+        outcome_type: "deliverable_created" | "decision_made" | "skill_practiced" | "insight_gained"
+        outcome_description: string
+        related_artifact_ids: [string]
+        
+    metadata:
+      total_messages: integer
+      duration_minutes: integer
+      primary_agent_id: string
+      workflows_executed: [string]
+
+# SESSION SUMMARIES (compressed form of full conversations)
+session_summaries:
+  - summary_id: "SUM_[TIMESTAMP]_[UUID]"
+    session_id: "SES_[TIMESTAMP]_[UUID]"
+    session_date: date
+    summary_text: string  # 2-3 paragraph summary
+    key_accomplishments:
+      - accomplishment: string
+        deliverable_id: string  # Reference if applicable
+    key_decisions:
+      - decision: string
+        rationale: string
+    open_items:
+      - item: string
+        priority: integer  # 1-10
+        assigned_agent_id: string
+    next_session_recommendations:
+      - recommendation: string
+        priority: integer  # 1-10
+    metadata:
+      summarized_by_agent_id: string
+      summary_timestamp: timestamp
+      compression_ratio: decimal  # How much was compressed
+
+# INSIGHTS EXTRACTED (learnings from history)
+extracted_insights:
+  - insight_id: "EIN_[TIMESTAMP]_[UUID]"
+    insight_type: "preference" | "pattern" | "skill_gap" | "effective_strategy" | "struggle_area"
+    insight_title: string
+    insight_description: string
+    supporting_conversations: [string]  # conversation_ids
+    confidence: decimal  # 0.0-1.0
+    first_observed_timestamp: timestamp
+    observation_count: integer
+    propagated_to:
+      - layer: string
+        field: string
+        propagation_timestamp: timestamp
+
+# SEARCH METADATA
+search_metadata:
+  indexed_topics:
+    - topic: string
+      conversation_ids: [string]
+      frequency: integer
+  indexed_agents:
+    - agent_id: string
+      conversation_count: integer
+      total_messages: integer
+  indexed_workflows:
+    - workflow_id: string
+      execution_count: integer
+      average_completion_rate: decimal
+  date_range:
+    earliest_conversation: timestamp
+    latest_conversation: timestamp
+    total_conversations: integer
+```
+
+---
+
+## Relationships
+
+- **Links to:** user_profile_id, references session_id, goal_id, conversation_id
+- **Referenced by:** Agents for context on past interactions
+
+## Access Patterns
+
+- **every_activation:** Recent session summaries (last 3-5)
+- **on_demand:** Full conversations, search by topic/agent/date, insights
+
+## Retention Policy
+
+- **Full messages:** Keep for 30 days, then compress to summary
+- **Session summaries:** Keep indefinitely
+- **Insights:** Keep indefinitely, update observation_count

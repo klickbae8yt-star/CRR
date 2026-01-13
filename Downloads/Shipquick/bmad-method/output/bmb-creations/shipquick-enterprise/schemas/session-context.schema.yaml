@@ -1,0 +1,114 @@
+# Session Context Schema
+
+**Layer:** Session Context  
+**Purpose:** Current interaction state (volatile)
+
+---
+
+```yaml
+# Session Context Layer Schema
+# Version: 1.0.0
+
+session_id: "SES_[TIMESTAMP]_[UUID]"
+created_timestamp: "ISO_8601"
+last_modified_timestamp: "ISO_8601"
+version: 1
+schema_version: "1.0.0"
+user_profile_id: "USR_[TIMESTAMP]_[UUID]"
+goal_id: "GOAL_[TIMESTAMP]_[UUID]"  # May be null
+
+# SESSION INFO
+session_info:
+  start_timestamp: timestamp
+  end_timestamp: timestamp  # null if ongoing
+  session_type: "work" | "exploration" | "review"
+  platform: string
+  client_info: string
+
+# ACTIVE STATE
+active_agents:
+  current_agent_id: string  # Currently active agent
+  agent_activation_history:
+    - activation_id: "ACT_[TIMESTAMP]_[UUID]"
+      agent_id: string
+      activated_timestamp: timestamp
+      deactivated_timestamp: timestamp
+      activation_reason: string
+      
+active_workflows:
+  current_workflow_id: string  # May be null
+  current_step_id: string      # May be null
+  workflow_state:
+    # Dynamic state variables from workflow
+    variables: object
+  workflow_history:
+    - execution_id: "EXC_[TIMESTAMP]_[UUID]"
+      workflow_id: string
+      started_timestamp: timestamp
+      completed_timestamp: timestamp
+      completion_status: "completed" | "abandoned" | "paused"
+      final_state: object
+
+# SESSION OBSERVATIONS
+session_observations:
+  - observation_id: "OBS_[TIMESTAMP]_[UUID]"
+    observation_timestamp: timestamp
+    observing_agent_id: string
+    observation_type: "preference" | "skill" | "behavior" | "struggle" | "insight"
+    observation_content: string
+    confidence_level: decimal  # 0.0-1.0
+    propagated_to_profile: boolean
+    propagation_timestamp: timestamp
+
+# CONVERSATION STATE
+conversation_state:
+  recent_topics:
+    - topic: string
+      discussed_timestamp: timestamp
+      resolution_status: "open" | "resolved"
+  pending_questions:
+    - question_id: "QST_[TIMESTAMP]_[UUID]"
+      question_text: string
+      asked_timestamp: timestamp
+      asking_agent_id: string
+      answer_received: boolean
+      answer_timestamp: timestamp
+  context_established:
+    - context_item: string
+      established_timestamp: timestamp
+      still_relevant: boolean
+
+# HANDOFFS
+handoffs:
+  - handoff_id: "HND_[TIMESTAMP]_[UUID]"
+    from_agent_id: string
+    to_agent_id: string
+    handoff_timestamp: timestamp
+    handoff_reason: string
+    context_summary: string
+    artifacts_to_reference: [string]
+
+# DECISION LOG
+decision_log:
+  - decision_id: "DCS_[TIMESTAMP]_[UUID]"
+    decision_timestamp: timestamp
+    deciding_agent_id: string
+    decision_type: string
+    decision_description: string
+    alternatives_considered:
+      - alternative: string
+        reason_rejected: string
+    rationale: string
+```
+
+---
+
+## Relationships
+
+- **Links to:** user_profile_id, goal_id
+- **Referenced by:** interaction_history (for summarization)
+
+## Access Patterns
+
+- **every_activation:** active_agents, active_workflows, recent conversation_state
+- **on_demand:** decision_log, handoffs, observations

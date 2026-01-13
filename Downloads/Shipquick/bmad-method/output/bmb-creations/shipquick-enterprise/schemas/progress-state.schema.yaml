@@ -1,0 +1,137 @@
+# Progress State Schema
+
+**Layer:** Progress State  
+**Purpose:** Dynamic tracking of work towards goal
+
+---
+
+```yaml
+# Progress State Context Layer Schema
+# Version: 1.0.0
+
+progress_id: "PRG_[TIMESTAMP]_[UUID]"
+created_timestamp: "ISO_8601"
+last_modified_timestamp: "ISO_8601"
+version: 1
+schema_version: "1.0.0"
+user_profile_id: "USR_[TIMESTAMP]_[UUID]"
+goal_id: "GOAL_[TIMESTAMP]_[UUID]"
+
+# COMPLETED DELIVERABLES
+completed_deliverables:
+  - deliverable_id: "DEL_[TIMESTAMP]_[UUID]"
+    name: string
+    description: string
+    deliverable_type: string  # domain-specific
+    completion_timestamp: timestamp
+    quality_score: decimal  # 0.0-10.0
+    quality_assessment_id: "QAS_[TIMESTAMP]_[UUID]"
+    artifact_location: string  # path to file
+    metadata:
+      created_by_agent_id: string
+      created_in_workflow_id: string
+      iteration_count: integer
+      tags: [string]
+    feedback_received:
+      - feedback_id: "FBK_[TIMESTAMP]_[UUID]"
+        feedback_source: "agent" | "external" | "self"
+        feedback_text: string
+        feedback_timestamp: timestamp
+
+# IN-PROGRESS WORK
+in_progress_work:
+  - work_item_id: "WRK_[TIMESTAMP]_[UUID]"
+    name: string
+    description: string
+    work_type: string
+    started_timestamp: timestamp
+    last_active_timestamp: timestamp
+    current_status: string
+    completion_percentage: integer  # 0-100
+    assigned_agent_id: string
+    active_workflow_id: string
+    current_step_id: string
+    next_actions:
+      - action_id: "ACT_[TIMESTAMP]_[UUID]"
+        action_description: string
+        action_priority: integer  # 1-10
+        estimated_duration_minutes: integer
+
+# SKILL PROGRESSION
+skill_progression:
+  - skill_id: "SKL_[TIMESTAMP]_[UUID]"  # Ref to user profile skill
+    proficiency_timeline:
+      - assessment_id: "ASS_[TIMESTAMP]_[UUID]"
+        timestamp: timestamp
+        proficiency_level: integer  # 1-10
+        assessment_method: string
+        assessor_agent_id: string
+        notes: string
+    recent_practice:
+      - practice_id: "PRC_[TIMESTAMP]_[UUID]"
+        timestamp: timestamp
+        practice_type: string
+        duration_minutes: integer
+        effectiveness_rating: integer  # 1-10
+        notes: string
+
+# BEHAVIORAL PATTERNS (observed)
+behavioral_patterns:
+  productivity_patterns:
+    most_productive_times:
+      - day_of_week: string
+        time_range: string
+        productivity_score: decimal
+        sample_size: integer
+    average_session_duration_minutes: decimal
+    sessions_per_week: decimal
+    completion_rate: decimal  # 0.0-1.0
+    
+  engagement_patterns:
+    streak_days: integer
+    longest_streak_days: integer
+    last_active_date: date
+    engagement_trend: "increasing" | "stable" | "decreasing"
+    
+  struggle_areas:
+    - struggle_id: "STG_[TIMESTAMP]_[UUID]"
+      area: string
+      description: string
+      first_observed_timestamp: timestamp
+      frequency: integer
+      severity: "minor" | "moderate" | "significant"
+      interventions_tried:
+        - intervention_id: "INT_[TIMESTAMP]_[UUID]"
+          intervention_description: string
+          tried_timestamp: timestamp
+          effectiveness: "helpful" | "neutral" | "not_helpful"
+
+# MILESTONE PROGRESS
+milestone_progress:
+  - milestone_id: "MLS_[TIMESTAMP]_[UUID]"  # Ref to goal milestone
+    progress_updates:
+      - update_id: "UPD_[TIMESTAMP]_[UUID]"
+        timestamp: timestamp
+        progress_percentage: integer  # 0-100
+        progress_description: string
+        blockers_identified:
+          - blocker_id: "BLK_[TIMESTAMP]_[UUID]"
+            blocker_description: string
+            severity: "minor" | "moderate" | "critical"
+            identified_timestamp: timestamp
+            resolution_status: "unresolved" | "in_progress" | "resolved"
+            resolution_description: string
+            resolved_timestamp: timestamp
+```
+
+---
+
+## Relationships
+
+- **Links to:** user_profile_id, goal_id
+- **Referenced by:** session_context
+
+## Access Patterns
+
+- **every_activation:** in_progress_work, current_milestone_progress
+- **on_demand:** completed_deliverables, skill_progression, behavioral_patterns

@@ -1,0 +1,52 @@
+# Shipquick Enterprise Rules for Cursor
+
+## System
+Shipquick Enterprise - Meta-agentic system for building AI agents, workflows, context layers.
+
+## Structure
+```
+agents/          7 specialist agents
+workflows/       7 step-file workflows  
+tasks/           5 utility tasks
+schemas/         6 context layer schemas
+templates/       agent.template.md (v2.0)
+config/          4 manifest CSVs
+```
+
+## Agent Schema v2.0
+Required sections:
+- Metadata: agent_id, version, schema_version: 2.0.0
+- Identity: display_name, icon, experience
+- Personality: 5 traits
+- Expertise: 5 domains
+- Context: required/optional/produces
+- Menu: items with exec="" paths
+- Templates: 2+ response templates
+- Errors: 4+ error handlers
+
+## Workflow Architecture
+- workflow.md with WORKFLOW ARCHITECTURE section
+- steps/ folder with step-01, step-02, etc.
+- Each step: frontmatter, objective, prerequisites, instructions, outputs, validation
+- nextStepFile links (null for final)
+
+## Menu Item Format
+```xml
+<item cmd="*action" type="workflow" exec="{module}/workflows/name/">[XX] Label</item>
+```
+
+## Context Layers (6)
+1. user-profile - stable user info
+2. goal-context - current objectives
+3. progress-state - dynamic tracking
+4. session-context - current interaction
+5. knowledge-graph - connected insights
+6. interaction-history - past interactions
+
+## ODEV Cycle
+Observe → Document → Embed (4+ locations) → Verify
+
+## Docs
+- Shipquick_Meta_Agentic_System_Architecture.md (7000+ lines)
+- README.md
+- config.yaml
